@@ -1,0 +1,42 @@
+version: '3.3'
+
+services:
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: nodejs
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - REDIS_URL=redis://redis
+      - NODE_ENV=development
+      - PORT=3000
+      - MONGODB_URL=mongodb://mongo/purls
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/opt/purls
+    links:
+      - redis
+      - mongo
+    command: /usr/local/wait-for-it.sh mongo:27017 redis:6379 -- yarn dev
+    tty: true
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongo:/data/mongo
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data/redis

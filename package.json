@@ -1,0 +1,33 @@
+{
+  "name": "purls",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "repository": "https://github.com/gurisko/purls",
+  "author": "Matus Gura <matus.gura@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "rimraf ./dist/* && NODE_ENV=development tsc-watch --onSuccess \"node dist/app.js\"",
+    "start": "yarn build && node dist/app.js",
+    "build": "tsc -p .",
+    "watch": "yarn dev"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.7",
+    "@types/geoip-lite": "^1.1.31",
+    "@types/ioredis": "^4.17.3",
+    "@types/mongoose": "^5.7.36",
+    "@types/node": "^14.6.0",
+    "@types/useragent": "^2.1.1",
+    "rimraf": "^3.0.2",
+    "tsc-watch": "^4.2.9",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "geoip-lite": "^1.4.2",
+    "ioredis": "^4.17.3",
+    "isbot": "^3.0.7",
+    "mongoose": "^5.10.0",
+    "useragent": "^2.3.0"
+  }
+}
