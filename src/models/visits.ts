@@ -11,7 +11,7 @@ const VisitSchema = new Schema({
   browser: {
     type: String,
   },
-  countr: {
+  country: {
     type: String,
   },
   headers: {
