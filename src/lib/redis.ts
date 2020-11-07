@@ -2,9 +2,6 @@ import Redis from 'ioredis';
 
 import {castArray} from '../utils/castArray';
 
-const REDIS_EXPIRY = 3600;
-const REDIS_PREFIX = 'purls';
-
 const redisClient = new Redis(process.env.REDIS_URL);
 
 function wrapValue(value: unknown): string {
@@ -12,7 +9,8 @@ function wrapValue(value: unknown): string {
 }
 
 function addPrefix(key: string) {
-  return `${REDIS_PREFIX}:${key}`;
+  const {REDIS_PREFIX} = process.env;
+  return REDIS_PREFIX ? `${REDIS_PREFIX}:${key}` : key;
 }
 
 export function getAsync(key: string): Promise<string | null>;
@@ -26,8 +24,12 @@ export async function getAsync(key: string|string[]): Promise<string | null | (s
   return results.length === 1 ? results[0] : results;
 }
 
-export async function putAsync<T>(key: string, data: T): Promise<T> {
-  await redisClient.set(addPrefix(key), wrapValue(data), 'EX', REDIS_EXPIRY);
+export async function setAsync<T>(key: string, data: T): Promise<T> {
+  const {REDIS_EXPIRY} = process.env;
+  const expiryArgs = REDIS_EXPIRY && +REDIS_EXPIRY > 0
+    ? ['EX', REDIS_EXPIRY]
+    : [];
+  await redisClient.set(addPrefix(key), wrapValue(data), ...expiryArgs);
   return data;
 }
 

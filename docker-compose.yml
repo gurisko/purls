@@ -11,11 +11,10 @@ services:
     env_file: .env
     environment:
       - REDIS_URL=redis://redis
-      - NODE_ENV=development
       - PORT=3000
-      - MONGODB_URL=mongodb://mongo/purls
+      - MONGODB_URI=mongodb://mongo/purls
     ports:
-      - 4000:4000
+      - 3000:3000
     volumes:
       - .:/opt/purls
     links:
