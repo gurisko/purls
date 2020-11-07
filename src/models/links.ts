@@ -18,9 +18,9 @@ const LinkSchema = new Schema({
   },
 });
 
-export interface Link extends Document {
+export interface LinkRecord extends Document {
   address: string;
   target: string;
 }
 
-export const link = model<Link, Model<Link>>('Link', LinkSchema);
+export const Link = model<LinkRecord, Model<LinkRecord>>('Link', LinkSchema);

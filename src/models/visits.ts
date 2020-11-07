@@ -5,7 +5,7 @@ import {
   Types,
 } from 'mongoose';
 
-import {Link} from './links';
+import {LinkRecord} from './links';
 
 const VisitSchema = new Schema({
   browser: {
@@ -38,15 +38,15 @@ const VisitSchema = new Schema({
   },
 });
 
-export interface Visit extends Document {
+export interface VisitRecord extends Document {
   browser?: string;
   country?: string;
   headers?: Types.Map<string>;
   ip: string;
-  link: Link;
+  link: LinkRecord;
   location?: string
   os: string;
   referrer: string;
 }
 
-export const visit = model<Visit>('Visit', VisitSchema);
+export const Visit = model<VisitRecord>('Visit', VisitSchema);

@@ -7,8 +7,8 @@ import {
   parse as parseUserAgent,
 } from 'useragent';
 
-import {Link} from './models/links';
-import {visit} from './models/visits';
+import {LinkRecord} from './models/links';
+import {Visit} from './models/visits';
 import {castArray} from './utils/castArray';
 
 export interface VisitRecord {
@@ -48,7 +48,7 @@ function getIpAddress(req: Request): string | null {
   return castArray(req.headers['x-real-ip'])[0] || req.connection.remoteAddress || null;
 }
 
-export async function visitLink(link: Link, req: Request) {
+export async function visitLink(link: LinkRecord, req: Request) {
   const isBot = req.headers['user-agent']
     ? isbot(req.headers['user-agent'])
     : true;
@@ -66,7 +66,7 @@ export async function visitLink(link: Link, req: Request) {
   const location = ip && ipLookup(ip);
   const country = location && location.country;
 
-  const newVisit = new visit({
+  const newVisit = new Visit({
     browser,
     country,
     ip,
