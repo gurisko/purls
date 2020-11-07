@@ -1,9 +1,11 @@
 import express from 'express';
 
+require('dotenv').config();
+
 import {connect as connectMongo} from './lib/mongo';
 import {
   getAsync,
-  putAsync,
+  setAsync,
 } from './lib/redis';
 import {
   Link,
@@ -37,14 +39,14 @@ app.get('/:id', async (req, res, next) => {
 
   await Promise.all([
     visitLink(record, req),
-    cached ? null : putAsync(address, JSON.stringify(record)),
+    cached ? null : setAsync(address, JSON.stringify(record)),
   ]);
 });
 
 void async function() {
   try {
     await connectMongo();
-    app.listen(4000);
+    app.listen(process.env.PORT);
   } catch (err) {
     process.exit(1);
   }
