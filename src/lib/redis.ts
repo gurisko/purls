@@ -6,7 +6,7 @@ const REDIS_PREFIX = 'purls';
 
 const redisClient = new Redis(process.env.REDIS_URL);
 
-function wrapValue(value: any): string {
+function wrapValue(value: unknown): string {
   return typeof value === 'string' ? value : JSON.stringify(value);
 }
 
