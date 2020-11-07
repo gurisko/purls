@@ -36,17 +36,21 @@ const VisitSchema = new Schema({
   referrer: {
     type: String,
   },
+}, {
+  timestamps: true,
 });
 
 export interface VisitRecord extends Document {
   browser?: string;
   country?: string;
+  createdAt: number;
   headers?: Types.Map<string>;
   ip: string;
   link: LinkRecord;
   location?: string
   os: string;
   referrer: string;
+  updatedAt: number;
 }
 
 export const Visit = model<VisitRecord>('Visit', VisitSchema);
