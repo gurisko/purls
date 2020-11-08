@@ -1,4 +1,5 @@
 import express from 'express';
+import nocache from 'nocache';
 
 require('dotenv').config();
 
@@ -14,6 +15,7 @@ import {
 import {visitLink} from './visit';
 
 const app = express();
+app.use(nocache());
 
 app.get('/404', async (req, res, next) => {
   return res.status(404).send('not found');

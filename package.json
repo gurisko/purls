@@ -29,6 +29,7 @@
     "ioredis": "^4.17.3",
     "isbot": "^3.0.7",
     "mongoose": "^5.10.0",
+    "nocache": "^2.1.0",
     "useragent": "^2.3.0"
   }
 }
